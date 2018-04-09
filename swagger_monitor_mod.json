@@ -1225,9 +1225,9 @@
         "operationId": "getMsgVpnClient",
         "parameters": [
           {
-            "description": "The Id of the Client.",
+            "description": "The Full ClientName of the Client.",
             "in": "path",
-            "name": "clientId",
+            "name": "clientName",
             "required": true,
             "type": "string"
           },
