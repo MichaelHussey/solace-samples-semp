@@ -471,19 +471,13 @@
       },
       "type": "object"
     },
-    "MsgVpnClientsResponse": {
+    "MsgVpnClientResponse": {
       "properties": {
         "data": {
-          "items": {
             "$ref": "#/definitions/MsgVpnClient"
-          },
-          "type": "array"
         },
         "links": {
-          "items": {
             "$ref": "#/definitions/MsgVpnClientLinks"
-          },
-          "type": "array"
         },
         "meta": {
           "$ref": "#/definitions/SempMeta"
@@ -1227,13 +1221,13 @@
     },
     "/msgVpns/{msgVpnName}/clients/{clientName}": {
       "get": {
-        "description": "Gets a list of Clients connected.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
-        "operationId": "getMsgVpnClients",
+        "description": "Gets a specific connected Client.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnClient",
         "parameters": [
           {
-            "description": "The clientName of the Queue.",
+            "description": "The Id of the Client.",
             "in": "path",
-            "name": "clientName",
+            "name": "clientId",
             "required": true,
             "type": "string"
           },
@@ -1243,18 +1237,6 @@
             "name": "msgVpnName",
             "required": true,
             "type": "string"
-          },
-          {
-            "$ref": "#/parameters/countQuery"
-          },
-          {
-            "$ref": "#/parameters/cursorQuery"
-          },
-          {
-            "$ref": "#/parameters/whereQuery"
-          },
-          {
-            "$ref": "#/parameters/selectQuery"
           }
         ],
         "produces": [
@@ -1262,9 +1244,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The list of Message VPN clients' attributes, and the request metadata.",
+            "description": "The Message VPN clients' attributes, and the request metadata.",
             "schema": {
-              "$ref": "#/definitions/MsgVpnClientsResponse"
+              "$ref": "#/definitions/MsgVpnClientResponse"
             }
           },
           "default": {
@@ -1279,10 +1261,10 @@
             "basicAuth": []
           }
         ],
-        "summary": "Gets a list of Message VPN Queue Spooled Messages objects.",
+        "summary": "Gets a specific Message VPN Client object.",
         "tags": [
           "msgVpn",
-          "queue"
+          "client"
         ]
       }
     },
