@@ -106,9 +106,13 @@ task buildSempLib << {
         from configurations.tool
         into new File("..").absolutePath
     }
-    def f = new File('../swagger.yaml')
-    if (!f.exists()) {
-        new URL('https://sftp.solace.com/download/VMR_SEMPV2_SCHEMA_YAML').withInputStream{ i -> f.withOutputStream{ it << i }}
+    def f_config = new File('../swagger_config.json')
+    if (!f_config.exists()) {
+        new URL('http://127.0.0.1:8080/SEMP/v2/config/spec').withInputStream{ i -> f_config.withOutputStream{ it << i }}
+    }       
+    def f_monitor = new File('../swagger_monitor.json')
+    if (!f_monitor.exists()) {
+        new URL('http://127.0.0.1:8080/SEMP/v2/monitor/spec').withInputStream{ i -> f_monitor.withOutputStream{ it << i }}
     }       
     delete "workdir"; (new File("workdir")).mkdirs()
     javaexec { 
@@ -121,9 +125,24 @@ task buildSempLib << {
                 "-l",
                 "java",
                 "-i",
-                "../../swagger.yaml",
+                "../../swagger_config.json",
                 "-c",
                 "../codegen_config_java.json"
+                ]
+    } 
+    javaexec { 
+        main="-jar";
+        classpath configurations.tool
+        workingDir = "workdir"
+        args = [
+                "../../swagger-codegen-cli-2.2.2.jar",
+                "generate",
+                "-l",
+                "java",
+                "-i",
+                "../../swagger_monitor.json",
+                "-c",
+                "../codegen_monitor_java.json"
                 ]
     } 
     // Cleanup
