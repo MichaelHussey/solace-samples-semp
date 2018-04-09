@@ -1,0 +1,1724 @@
+{
+  "basePath": "/SEMP/v2/monitor",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "AboutApi": {
+      "properties": {
+        "platform": {
+          "description": "The platform that is running the API.",
+          "type": "string"
+        },
+        "sempVersion": {
+          "description": "The SEMP API version.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "platform",
+        "sempVersion"
+      ],
+      "type": "object"
+    },
+    "AboutApiLinks": {
+      "properties": {
+        "uri": {
+          "description": "The URI of this AboutApi object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AboutApiResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/AboutApi"
+        },
+        "links": {
+          "$ref": "#/definitions/AboutApiLinks"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnQueueEgressFlow": {
+      "properties": {
+        "ackPendingHighMsgId": {
+          "description": "The highest message identifier (ID) of messages that have been delivered and are waiting for acknowledgement.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "ackPendingLowMsgId": {
+          "description": "The lowest message identifier (ID) of messages that have been delivered and are waiting for acknowledgement.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "activationTimestamp": {
+          "description": "The timestamp of the moment when the Queue Consumer Flow became active.",
+          "type": "string"
+        },
+        "activityStatus": {
+          "description": "The current status of the Queue Consumer Flow as: Active (browser), Active (consumer), or Inactive.",
+          "type": "string"
+        },
+        "activityStatusUpdateState": {
+          "description": "The current state of updating the Queue Consumer Flow activity status to the Client when the Active Flow Indication feature is used.",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "The name of the Queue Consumer.",
+          "type": "string"
+        },
+        "connectTimestamp": {
+          "description": "The timestamp of the moment when the Queue Consumer Flow connected to the Queue.",
+          "type": "string"
+        },
+        "counter": {
+          "$ref": "#/definitions/MsgVpnQueueEgressFlowCounter"
+        },
+        "egressSelector": {
+          "description": "The current value of the Queue Consumer Flow selector.",
+          "type": "string"
+        },
+        "egressSelectorLastExaminedMsgId": {
+          "description": "The identifier (ID) of the last message examined by the Queue Consumer Flow selector.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "flowId": {
+          "description": "The integer identifier (ID) of the Flow.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "flowState": {
+          "description": "The Flow identifier (ID) and its state as: Deliver from input stream, Deliver from RAM, or Deliver from ADB or disk.",
+          "type": "string"
+        },
+        "isClientRedeliveryRequestAllowed": {
+          "description": "Indicates whether the Queue Consumer Flow can receive request redelivery messages (as negative acknowledgements - NACKs) from the Client. Applicable only to REST clients.",
+          "type": "boolean"
+        },
+        "isNoLocalDelivery": {
+          "description": "Indicates whether not to deliver egress messages to a client that published them.",
+          "type": "boolean"
+        },
+        "lastDeliveredMsgId": {
+          "description": "The identifier (ID) of the last message confirmed delivered to the Queue Consumer.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "msgVpnName": {
+          "description": "The name of the Message VPN.",
+          "type": "string"
+        },
+        "queueName": {
+          "description": "The name of the Queue.",
+          "type": "string"
+        },
+        "usedWindowSize": {
+          "description": "The currently used portion of the window for guaranteed messages received by the Queue Consumer, in messages.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "windowSize": {
+          "description": "The size of the window used for guaranteed messages received by the Queue Consumer, in messages.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueEgressFlowCounter": {
+      "properties": {
+        "ackedMsgCount": {
+          "description": "The current total number of messages acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "cutThroughDeliveryAckedMsgCount": {
+          "description": "The current total number of messages that used cut-through delivery that are acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "egressSelectorDidNotMatchMsgCount": {
+          "description": "The current total number of messages for which the Queue Consumer selector did not match.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "egressSelectorExaminedMsgCount": {
+          "description": "The current total number of messages examined by the Queue Consumer selector.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "egressSelectorMatchedMsgCount": {
+          "description": "The current total number of messages for which the Queue Consumer selector matched.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "maxDeliveredUnackedMsgsPerFlowExceededMsgCount": {
+          "description": "The current total number of messages that exceeded the maximum number of delivered unacknowledged messages.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "redeliveredMsgCount": {
+          "description": "The current total number of messages that were redelivered.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "redeliveryRequestCount": {
+          "description": "The current total number of requests to redeliver messages.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "storeAndForwardDeliveryAckedMsgCount": {
+          "description": "The current total number of messages that used store and forward delivery that are acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "unackedMsgCount": {
+          "description": "The current total number of delivered messages that have not yet been acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "windowClosedCount": {
+          "description": "The current total number of times the window for guaranteed messages received by the Queue Consumer was closed.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueEgressFlowLinks": {
+      "properties": {
+        "uri": {
+          "description": "The URI of this MsgVpnQueueEgressFlow object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueEgressFlowResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MsgVpnQueueEgressFlow"
+        },
+        "links": {
+          "$ref": "#/definitions/MsgVpnQueueEgressFlowLinks"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnQueueEgressFlowsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnQueueEgressFlow"
+          },
+          "type": "array"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnQueueEgressFlowLinks"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnQueueMessage": {
+      "properties": {
+        "attachmentSize": {
+          "description": "The size of the Message attachment, in megabytes (MB).",
+          "format": "double",
+          "type": "number"
+        },
+        "contentSize": {
+          "description": "The size of the Message content, in megabytes (MB).",
+          "format": "double",
+          "type": "number"
+        },
+        "expiryTime": {
+          "description": "The timestamp of the moment when the Message expires.",
+          "type": "string"
+        },
+        "isDmqEligible": {
+          "description": "Indicates whether the Message is eligible for the Dead Message Queue (DMQ).",
+          "type": "boolean"
+        },
+        "isSent": {
+          "description": "Indicates whether the Message has been sent.",
+          "type": "boolean"
+        },
+        "msgId": {
+          "description": "The identifier (ID) of the Message.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "msgVpnName": {
+          "description": "The name of the Message VPN.",
+          "type": "string"
+        },
+        "publisherId": {
+          "description": "The identifier (ID) of the Message publisher.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "queueName": {
+          "description": "The name of the Queue.",
+          "type": "string"
+        },
+        "redeliveryCount": {
+          "description": "Number of times the Message has been redelivered.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "replicatedMateMsgId": {
+          "description": "The Message identifier (ID) on the Replication Mate. Applicable only to replicated messages.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "replicationStatus": {
+          "description": "The current replication status of the Message as: Replicated, Pending replication, or Not replicated.",
+          "type": "string"
+        },
+        "sequenceNumber": {
+          "description": "The sequence number assigned to the Message. Applicable only to messages received on sequenced Topics.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "spooledTimestamp": {
+          "description": "The timestamp of the moment when the Message was spooled (persisted in the Message Spool).",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueMessageLinks": {
+      "properties": {
+        "uri": {
+          "description": "The URI of this MsgVpnQueueMessage object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+     "MsgVpnClientLinks": {
+      "properties": {
+        "uri": {
+          "description": "xxx",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueMessageResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MsgVpnQueueMessage"
+        },
+        "links": {
+          "$ref": "#/definitions/MsgVpnQueueMessageLinks"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnClient": {
+      "properties": {
+        "aclProfile": {
+          "description": "aclProfile.",
+          "type": "string"
+        },
+        "clientAddress": {
+          "description": "clientAddress.",
+          "type": "string"
+        },
+        "clientId": {
+          "description": "clientId.",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "clientName.",
+          "type": "string"
+        },
+        "clientUsername": {
+          "description": "clientUsername.",
+          "type": "string"
+        },
+        "description": {
+          "description": "description.",
+          "type": "string"
+        },
+        "dtoLocalPriority": {
+          "description": "dtoLocalPriority.",
+          "type": "string"
+        },
+        "dtoNetworkPriority": {
+          "description": "dtoNetworkPriority.",
+          "type": "string"
+        },
+        "elidingEnabled": {
+          "description": "elidingEnabled.",
+          "type": "string"
+        },
+        "elidingTopics": {
+          "description": "elidingTopics.",
+          "type": "string"
+        },
+        "elidingTopicsHwm": {
+          "description": "elidingTopicsHwm.",
+          "type": "string"
+        },
+        "largeMsgEventRaised": {
+          "description": "largeMsgEventRaised.",
+          "type": "string"
+        },
+        "maxElidingTopicsRaised": {
+          "description": "maxElidingTopicsRaised.",
+          "type": "string"
+        },
+        "msgTooBigEventRaised": {
+          "description": "msgTooBigEventRaised.",
+          "type": "string"
+        },
+        "msgVpnName": {
+          "description": "msgVpnName.",
+          "type": "string"
+        },
+        "noLocal": {
+          "description": "noLocal.",
+          "type": "string"
+        },
+        "originalClientUsername": {
+          "description": "originalClientUsername.",
+          "type": "string"
+        },
+        "parseErrorEventRaised": {
+          "description": "parseErrorEventRaised.",
+          "type": "string"
+        },
+        "platform": {
+          "description": "platform.",
+          "type": "string"
+        },
+        "profile": {
+          "description": "profile.",
+          "type": "string"
+        },
+        "slowSubscriber": {
+          "description": "slowSubscriber.",
+          "type": "string"
+        },
+        "softwareDate": {
+          "description": "softwareDate.",
+          "type": "string"
+        },
+        "softwareVersion": {
+          "description": "softwareVersion.",
+          "type": "string"
+        },
+        "tlsDowngradedToPlainText": {
+          "description": "tlsDowngradedToPlainText.",
+          "type": "string"
+        },
+        "totalEgressFlows": {
+          "description": "totalEgressFlows.",
+          "type": "string"
+        },
+        "totalIngressFlows": {
+          "description": "totalIngressFlows.",
+          "type": "string"
+        },
+        "type": {
+          "description": "type.",
+          "type": "string"
+        },
+        "uptime": {
+          "description": "uptime.",
+          "type": "string"
+        },
+        "user": {
+          "description": "user.",
+          "type": "string"
+        },
+        "webTransportSession": {
+          "description": "webTransportSession.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnClientsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnClient"
+          },
+          "type": "array"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnClientLinks"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnQueueMessagesResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnQueueMessage"
+          },
+          "type": "array"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnQueueMessageLinks"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnQueueSubscription": {
+      "properties": {
+        "creator": {
+          "description": "The creator of the topic subscription. Available since 2.6.0.",
+          "type": "string"
+        },
+        "msgVpnName": {
+          "description": "The name of the Message VPN.",
+          "type": "string"
+        },
+        "queueName": {
+          "description": "The name of the Queue.",
+          "type": "string"
+        },
+        "subscriptionTopic": {
+          "description": "The Topic of the Subscription.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueSubscriptionLinks": {
+      "properties": {
+        "uri": {
+          "description": "The URI of this MsgVpnQueueSubscription object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnQueueSubscriptionResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MsgVpnQueueSubscription"
+        },
+        "links": {
+          "$ref": "#/definitions/MsgVpnQueueSubscriptionLinks"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnQueueSubscriptionsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnQueueSubscription"
+          },
+          "type": "array"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnQueueSubscriptionLinks"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointEgressFlow": {
+      "properties": {
+        "ackPendingHighMsgId": {
+          "description": "The highest message identifier (ID) of messages that have been delivered and are waiting for acknowledgement.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "ackPendingLowMsgId": {
+          "description": "The lowest message identifier (ID) of messages that have been delivered and are waiting for acknowledgement.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "activityStatus": {
+          "description": "The current status of the Topic Endpoint Subscriber Flow as: Active (browser), Active (consumer), or Inactive.",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "The name of the Topic Endpoint Subscriber.",
+          "type": "string"
+        },
+        "connectTimestamp": {
+          "description": "The timestamp of the moment when the Topic Endpoint Subscriber Flow connected to the Topic Endpoint.",
+          "type": "string"
+        },
+        "counter": {
+          "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlowCounter"
+        },
+        "flowId": {
+          "description": "The integer identifier (ID) of the Flow.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "flowState": {
+          "description": "The Flow identifier (ID) and its state as: Deliver from input stream, Deliver from RAM, or Deliver from ADB or disk.",
+          "type": "string"
+        },
+        "isClientRedeliveryRequestAllowed": {
+          "description": "Indicates whether the Topic Endpoint Subscriber Flow can receive request redelivery messages (as negative acknowledgements - NACKs) from the Client. Applicable only to REST clients.",
+          "type": "boolean"
+        },
+        "isNoLocalDelivery": {
+          "description": "Indicates whether not to deliver egress messages to a client who publishes them.",
+          "type": "boolean"
+        },
+        "lastDeliveredMsgId": {
+          "description": "The identifier (ID) of the last message confirmed delivered to the Topic Endpoint Subscriber.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "msgVpnName": {
+          "description": "The name of the Message VPN.",
+          "type": "string"
+        },
+        "topicEndpointName": {
+          "description": "The name of the Topic Endpoint.",
+          "type": "string"
+        },
+        "usedWindowSize": {
+          "description": "The currently used portion of the window for guaranteed messages received by the Topic Endpoint Subscriber, in messages.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "windowSize": {
+          "description": "The size of the window used for guaranteed messages received by the Topic Endpoint Subscriber, in messages.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointEgressFlowCounter": {
+      "properties": {
+        "ackedMsgCount": {
+          "description": "The current total number of messages acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "cutThroughDeliveryAckedMsgCount": {
+          "description": "The current total number of messages that used cut-through delivery that are acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "maxDeliveredUnackedMsgsPerFlowExceededMsgCount": {
+          "description": "The current total number of messages that exceeded the maximum number of delivered unacknowledged messages.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "redeliveredMsgCount": {
+          "description": "The current total number of messages that were redelivered.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "redeliveryRequestCount": {
+          "description": "The current total number of requests to redeliver messages.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "storeAndForwardDeliveryAckedMsgCount": {
+          "description": "The current total number of messages that used store and forward delivery that are acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "unackedMsgCount": {
+          "description": "The current total number of delivered messages that have not yet been acknowledged by clients and neighboring routers.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "windowClosedCount": {
+          "description": "The current total number of times the window for guaranteed messages received by the Topic Endpoint Subscriber was closed.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointEgressFlowLinks": {
+      "properties": {
+        "uri": {
+          "description": "The URI of this MsgVpnTopicEndpointEgressFlow object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointEgressFlowResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlow"
+        },
+        "links": {
+          "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlowLinks"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointEgressFlowsResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlow"
+          },
+          "type": "array"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlowLinks"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointMessage": {
+      "properties": {
+        "attachmentSize": {
+          "description": "The size of the Message attachment, in megabytes (MB).",
+          "format": "double",
+          "type": "number"
+        },
+        "contentSize": {
+          "description": "The size of the Message content, in megabytes (MB).",
+          "format": "double",
+          "type": "number"
+        },
+        "expiryTime": {
+          "description": "The timestamp of the moment when the Message expires.",
+          "type": "string"
+        },
+        "isDmqEligible": {
+          "description": "Indicates whether the Message is eligible for the Dead Message Queue (DMQ).",
+          "type": "boolean"
+        },
+        "isSent": {
+          "description": "Indicates whether the Message has been sent.",
+          "type": "boolean"
+        },
+        "msgId": {
+          "description": "The identifier (ID) of the Message.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "msgVpnName": {
+          "description": "The name of the Message VPN.",
+          "type": "string"
+        },
+        "publisherId": {
+          "description": "The identifier (ID) of the Message publisher.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "redeliveryCount": {
+          "description": "Number of times the Message has been redelivered.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "replicatedMateMsgId": {
+          "description": "The Message identifier (ID) on the Replication Mate. Applicable only to replicated messages.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "replicationStatus": {
+          "description": "The current replication status of the Message as: Replicated, Pending replication, or Not replicated.",
+          "type": "string"
+        },
+        "sequenceNumber": {
+          "description": "The sequence number assigned to the Message. Applicable only to messages received on sequenced Topics.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "spooledTimestamp": {
+          "description": "The timestamp of the moment when the Message was spooled (persisted in the Message Spool).",
+          "type": "string"
+        },
+        "topicEndpointName": {
+          "description": "The name of the Topic Endpoint.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointMessageLinks": {
+      "properties": {
+        "uri": {
+          "description": "The URI of this MsgVpnTopicEndpointMessage object.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointMessageResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MsgVpnTopicEndpointMessage"
+        },
+        "links": {
+          "$ref": "#/definitions/MsgVpnTopicEndpointMessageLinks"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "MsgVpnTopicEndpointMessagesResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnTopicEndpointMessage"
+          },
+          "type": "array"
+        },
+        "links": {
+          "items": {
+            "$ref": "#/definitions/MsgVpnTopicEndpointMessageLinks"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "SempError": {
+      "properties": {
+        "code": {
+          "description": "The error code which uniquely identifies the error that has occurred.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "description": {
+          "description": "The verbose description of the problem.",
+          "type": "string"
+        },
+        "status": {
+          "description": "The terse status string associated with `code`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "status",
+        "description"
+      ],
+      "type": "object"
+    },
+    "SempMeta": {
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/SempError"
+        },
+        "paging": {
+          "$ref": "#/definitions/SempPaging"
+        },
+        "request": {
+          "$ref": "#/definitions/SempRequest"
+        },
+        "responseCode": {
+          "description": "The HTTP response code, one of 200 (success), 4xx (client error), or 5xx (server error).",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "request",
+        "responseCode"
+      ],
+      "type": "object"
+    },
+    "SempMetaOnlyResponse": {
+      "properties": {
+        "meta": {
+          "$ref": "#/definitions/SempMeta"
+        }
+      },
+      "required": [
+        "meta"
+      ],
+      "type": "object"
+    },
+    "SempPaging": {
+      "properties": {
+        "cursorQuery": {
+          "description": "The cursor, or position, for the next page of objects. Use this as the `cursor` query parameter of the next request.",
+          "type": "string"
+        },
+        "nextPageUri": {
+          "description": "The URI of the next page of objects. `cursorQuery` is already embedded within this URI.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cursorQuery",
+        "nextPageUri"
+      ],
+      "type": "object"
+    },
+    "SempRequest": {
+      "properties": {
+        "method": {
+          "description": "The HTTP method of the request which resulted in this response.",
+          "type": "string"
+        },
+        "uri": {
+          "description": "The URI of the request which resulted in this response.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "uri",
+        "method"
+      ],
+      "type": "object"
+    }
+  },
+  "host": "www.solace.com",
+  "info": {
+    "contact": {
+      "email": "support@solace.com",
+      "url": "http://www.solace.com"
+    },
+    "description": "SEMP (starting in `v2`, see [note 1](#notes)) is a RESTful\nAPI for configuring, monitoring, and administering a Solace router.\n\nSEMP uses URIs to address manageable **resources** of the Solace router.\n Resources are either individual **objects**, or **collections** of objects.\n This document applies to the following API:\n\n\nAPI|Base Path|Purpose|Comments\n:---|:---|:---|:---\nMonitoring|/SEMP/v2/monitor|Querying operational parameters|See [note 2](#notes)\n\n\n\nThe following APIs are also available:\n\n\nAPI|Base Path|Purpose|Comments\n:---|:---|:---|:---\nConfiguration|/SEMP/v2/config|Reading and writing config state|See [note 2](#notes)\n\n\n\nResources are always nouns, with individual objects being singular and\n collections being plural. Objects within a collection are identified by an\n `obj-id`, which follows the collection name with the form\n `collection-name/obj-id`. Some examples:\n\n<pre>\n/SEMP/v2/monitor/msgVpns                       ; MsgVpn collection\n/SEMP/v2/monitor/msgVpns/finance               ; MsgVpn object named \"finance\"\n/SEMP/v2/monitor/msgVpns/finance/queues        ; Queue collection within MsgVpn \"finance\"\n/SEMP/v2/monitor/msgVpns/finance/queues/orderQ ; Queue object named \"orderQ\" within MsgVpn \"finance\"\n</pre>\n\n## Collection Resources\n\nCollections are unordered lists of objects (unless described as otherwise), and\n are described by JSON arrays. Each item in the array represents an object in\n the same manner as the individual object would normally be represented.\n\n\n## Object Resources\n\nObjects are composed of attributes and collections, and are described by JSON\n content as name/value pairs. The collections of an object are not contained\n directly in the object's JSON content, rather the content includes a URI\n attribute which points to the collection. This contained collection resource\n must be managed as a separate resource through this URI.\n\nAt a minimum, every object has 1 or more identifying attributes, and its own\n `uri` attribute which contains the URI to itself. Attributes may have any\n (non-exclusively) of the following properties:\n\n\nProperty|Meaning|Comments\n:---|:---|:---\nIdentifying|Attribute is involved in unique identification of the object, and appears in its URI|\nDeprecated|Attribute is deprecated, and will disappear in the next SEMP version|\n\n\n\n\n\n## HTTP Methods\n\nThe following HTTP methods manipulate resources in accordance with these\n general principles:\n\n\nMethod|Resource|Meaning|Request Body|Response Body|Missing Request Attributes\n:---|:---|:---|:---|:---|:---\nGET|Object|Get object|Empty|Object attributes and metadata|N/A\nGET|Collection|Get collection|Empty|Object attributes and collection metadata|N/A\n\n\n\n## Common Query Parameters\n\nThe following are some common query parameters that are supported by many\n method/URI combinations. Individual URIs may document additional parameters.\n Note that multiple query parameters can be used together in a single URI,\n separated by the ampersand character. For example:\n\n<pre>\n; Request for the MsgVpns collection using two hypothetical query parameters\n; \"q1\" and \"q2\" with values \"val1\" and \"val2\" respectively\n/SEMP/v2/monitor/msgVpns?q1=val1&q2=val2\n</pre>\n\n### select\n\nInclude in the response only selected attributes of the object, or exclude \n from the response selected attributes of the object. Use this query parameter\n to limit the size of the returned data for each returned object, return only\n those fields that are desired, or exclude fields that are not desired.\n\nThe value of `select` is a comma-separated list of attribute names. If the \n list contains attribute names that are not prefaced by `-`, only those \n attributes are included in the response. If the list contains attribute names\n that are prefaced by `-`, those attributes are excluded from the response. If\n the list contains both types, then the difference of the first set of \n attributes and the second set of attributes is returned. If the list is\n empty (i.e. `select=`), no attributes are returned \n\nAll attributes that are prefaced by `-` must follow all attributes that are\n not prefaced by `-`. In addition, each attribute name in the list must match\n at least one attribute in the object.\n\nNames may include the `*` wildcard (zero or more characters). Nested attribute\n names are supported using periods (e.g. `parentName.childName`).\n \nSome examples:\n\n<pre>\n; List of all MsgVpn names\n/SEMP/v2/monitor/msgVpns?select=msgVpnName\n\n; List of all MsgVpn and their attributes except for their names\n/SEMP/v2/monitor/msgVpns?select=-msgVpnName\n\n; Authentication attributes of MsgVpn \"finance\"\n/SEMP/v2/monitor/msgVpns/finance?select=authentication*\n\n; All attributes of MsgVpn \"finance\" except for authentication attributes\n/SEMP/v2/monitor/msgVpns/finance?select=-authentication*\n\n; Access related attributes of Queue \"orderQ\" of MsgVpn \"finance\"\n/SEMP/v2/monitor/msgVpns/finance/queues/orderQ?select=owner,permission\n</pre>\n\n### where\n\nInclude in the response only objects where certain conditions are true. Use\n this query parameter to limit which objects are returned to those whose\n attribute values meet the given conditions.\n\nThe value of `where` is a comma-separated list of expressions. All expressions\n must be true for the object to be included in the response. Each expression\n takes the form:\n\n<pre>\nexpression  = attribute-name OP value\nOP          = '==' | '!=' | '&lt;' | '&gt;' | '&lt;=' | '&gt;='\n</pre>\n\n`value` may be a number, string, `true`, or `false`, as appropriate for the\n type of `attribute-name`. Greater-than and less-than comparisons only work for\n numbers. A `*` in a string `value` is interpreted as a wildcard (zero or more\n characters). Some examples:\n\n<pre>\n; Only enabled MsgVpns\n/SEMP/v2/monitor/msgVpns?where=enabled==true\n\n; Only MsgVpns using basic non-LDAP authentication\n/SEMP/v2/monitor/msgVpns?where=authenticationBasicEnabled==true,authenticationBasicType!=ldap\n\n; Only MsgVpns that allow more than 100 client connections\n/SEMP/v2/monitor/msgVpns?where=maxConnectionCount>100\n\n; Only MsgVpns with msgVpnName starting with \"B\":\n/SEMP/v2/monitor/msgVpns?where=msgVpnName==B*\n</pre>\n\n### count\n\nLimit the count of objects in the response. This can be useful to limit the\n size of the response for large collections. The minimum value for `count` is\n `1` and the default is `10`. There is a hidden maximum\n as to prevent overloading the system. For example:\n\n<pre>\n; Up to 25 MsgVpns\n/SEMP/v2/monitor/msgVpns?count=25\n</pre>\n\n### cursor\n\nThe cursor, or position, for the next page of objects. Cursors are opaque data\n that should not be created or interpreted by SEMP clients, and should only be\n used as described below.\n\nWhen a request is made for a collection and there may be additional objects\n available for retrieval that are not included in the initial response, the\n response will include a `cursorQuery` field containing a cursor. The value\n of this field can be specified in the `cursor` query parameter of a\n subsequent request to retrieve the next page of objects. For convenience,\n an appropriate URI is constructed automatically by the router and included\n in the `nextPageUri` field of the response. This URI can be used directly\n to retrieve the next page of objects.\n\n## Notes\n\nNote|Description\n:---:|:---\n1|This specification defines SEMP starting in \"v2\", and not the original SEMP \"v1\" interface. Request and response formats between \"v1\" and \"v2\" are entirely incompatible, although both protocols share a common port configuration on the Solace router. They are differentiated by the initial portion of the URI path, one of either \"/SEMP/\" or \"/SEMP/v2/\"\n2|This API is partially implemented. Only a subset of all objects are available.\n\n\n\n",
+    "title": "SEMP (Solace Element Management Protocol)",
+    "version": "2.6.0"
+  },
+  "parameters": {
+    "countQuery": {
+      "default": 10,
+      "description": "Limit the count of objects in the response. See [Count](#count \"Description of the syntax of the `count` parameter\").",
+      "in": "query",
+      "minimum": 1,
+      "name": "count",
+      "required": false,
+      "type": "integer"
+    },
+    "cursorQuery": {
+      "description": "The cursor, or position, for the next page of objects. See [Cursor](#cursor \"Description of the syntax of the `cursor` parameter\").",
+      "in": "query",
+      "name": "cursor",
+      "required": false,
+      "type": "string"
+    },
+    "selectQuery": {
+      "collectionFormat": "csv",
+      "description": "Include in the response only selected attributes of the object, or exclude from the response selected attributes of the object. See [Select](#select \"Description of the syntax of the `select` parameter\").",
+      "in": "query",
+      "items": {
+        "type": "string"
+      },
+      "name": "select",
+      "required": false,
+      "type": "array"
+    },
+    "whereQuery": {
+      "collectionFormat": "csv",
+      "description": "Include in the response only objects where certain conditions are true. See [Where](#where \"Description of the syntax of the `where` parameter\").",
+      "in": "query",
+      "items": {
+        "type": "string"
+      },
+      "name": "where",
+      "required": false,
+      "type": "array"
+    }
+  },
+  "paths": {
+    "/about/api": {
+      "get": {
+        "description": "Gets an API Description object.\n\nA SEMP client authorized with a minimum access scope/level of \"global/none\" is required to perform this operation.\n\nThis has been available since 2.2.0.",
+        "operationId": "getAboutApi",
+        "parameters": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The API Description object's attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/AboutApiResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets an API Description object.",
+        "tags": [
+          "about"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/queues/{queueName}/egressFlows": {
+      "get": {
+        "description": "Gets a list of Message VPN Queue Flows objects.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nflowId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnQueueEgressFlows",
+        "parameters": [
+          {
+            "description": "The queueName of the Queue.",
+            "in": "path",
+            "name": "queueName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/countQuery"
+          },
+          {
+            "$ref": "#/parameters/cursorQuery"
+          },
+          {
+            "$ref": "#/parameters/whereQuery"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Message VPN Queue Flows objects' attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnQueueEgressFlowsResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a list of Message VPN Queue Flows objects.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/queues/{queueName}/egressFlows/{flowId}": {
+      "get": {
+        "description": "Gets a Message VPN Queue Flows object.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nflowId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnQueueEgressFlow",
+        "parameters": [
+          {
+            "description": "The queueName of the Queue.",
+            "in": "path",
+            "name": "queueName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The flowId of the Message VPN Queue Flows.",
+            "in": "path",
+            "name": "flowId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The Message VPN Queue Flows object's attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnQueueEgressFlowResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a Message VPN Queue Flows object.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/queues/{queueName}/messages": {
+      "get": {
+        "description": "Gets a list of Message VPN Queue Spooled Messages objects.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnQueueMessages",
+        "parameters": [
+          {
+            "description": "The queueName of the Queue.",
+            "in": "path",
+            "name": "queueName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/countQuery"
+          },
+          {
+            "$ref": "#/parameters/cursorQuery"
+          },
+          {
+            "$ref": "#/parameters/whereQuery"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Message VPN Queue Spooled Messages objects' attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnQueueMessagesResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a list of Message VPN Queue Spooled Messages objects.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/clients/{clientName}": {
+      "get": {
+        "description": "Gets a list of Clients connected.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnClients",
+        "parameters": [
+          {
+            "description": "The clientName of the Queue.",
+            "in": "path",
+            "name": "clientName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/countQuery"
+          },
+          {
+            "$ref": "#/parameters/cursorQuery"
+          },
+          {
+            "$ref": "#/parameters/whereQuery"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Message VPN clients' attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnClientsResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a list of Message VPN Queue Spooled Messages objects.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+     "/msgVpns/{msgVpnName}/queues/{queueName}/messages/{msgId}": {
+      "get": {
+        "description": "Gets a Message VPN Queue Spooled Messages object.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\nqueueName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnQueueMessage",
+        "parameters": [
+          {
+            "description": "The queueName of the Queue.",
+            "in": "path",
+            "name": "queueName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgId of the Message VPN Queue Spooled Messages.",
+            "in": "path",
+            "name": "msgId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The Message VPN Queue Spooled Messages object's attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnQueueMessageResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a Message VPN Queue Spooled Messages object.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/queues/{queueName}/subscriptions": {
+      "get": {
+        "description": "Gets a list of Queue Subscription objects.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgVpnName|x|\nqueueName|x|\nsubscriptionTopic|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.0.0.",
+        "operationId": "getMsgVpnQueueSubscriptions",
+        "parameters": [
+          {
+            "description": "The queueName of the Queue.",
+            "in": "path",
+            "name": "queueName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/countQuery"
+          },
+          {
+            "$ref": "#/parameters/cursorQuery"
+          },
+          {
+            "$ref": "#/parameters/whereQuery"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Queue Subscription objects' attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnQueueSubscriptionsResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a list of Queue Subscription objects.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/queues/{queueName}/subscriptions/{subscriptionTopic}": {
+      "get": {
+        "description": "Gets a Queue Subscription object.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgVpnName|x|\nqueueName|x|\nsubscriptionTopic|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.0.0.",
+        "operationId": "getMsgVpnQueueSubscription",
+        "parameters": [
+          {
+            "description": "The queueName of the Queue.",
+            "in": "path",
+            "name": "queueName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The subscriptionTopic of the Queue Subscription.",
+            "in": "path",
+            "name": "subscriptionTopic",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The Queue Subscription object's attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnQueueSubscriptionResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a Queue Subscription object.",
+        "tags": [
+          "msgVpn",
+          "queue"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/topicEndpoints/{topicEndpointName}/egressFlows": {
+      "get": {
+        "description": "Gets a list of Message VPN Topic Endpoint Flows objects.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nflowId|x|\nmsgVpnName|x|\ntopicEndpointName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnTopicEndpointEgressFlows",
+        "parameters": [
+          {
+            "description": "The topicEndpointName of the Topic Endpoint.",
+            "in": "path",
+            "name": "topicEndpointName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/countQuery"
+          },
+          {
+            "$ref": "#/parameters/cursorQuery"
+          },
+          {
+            "$ref": "#/parameters/whereQuery"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Message VPN Topic Endpoint Flows objects' attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlowsResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a list of Message VPN Topic Endpoint Flows objects.",
+        "tags": [
+          "msgVpn",
+          "topicEndpoint"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/topicEndpoints/{topicEndpointName}/egressFlows/{flowId}": {
+      "get": {
+        "description": "Gets a Message VPN Topic Endpoint Flows object.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nflowId|x|\nmsgVpnName|x|\ntopicEndpointName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnTopicEndpointEgressFlow",
+        "parameters": [
+          {
+            "description": "The topicEndpointName of the Topic Endpoint.",
+            "in": "path",
+            "name": "topicEndpointName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The flowId of the Message VPN Topic Endpoint Flows.",
+            "in": "path",
+            "name": "flowId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The Message VPN Topic Endpoint Flows object's attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnTopicEndpointEgressFlowResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a Message VPN Topic Endpoint Flows object.",
+        "tags": [
+          "msgVpn",
+          "topicEndpoint"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/topicEndpoints/{topicEndpointName}/messages": {
+      "get": {
+        "description": "Gets a list of Message VPN Topic Endpoint Spooled Messages objects.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\ntopicEndpointName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnTopicEndpointMessages",
+        "parameters": [
+          {
+            "description": "The topicEndpointName of the Topic Endpoint.",
+            "in": "path",
+            "name": "topicEndpointName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/countQuery"
+          },
+          {
+            "$ref": "#/parameters/cursorQuery"
+          },
+          {
+            "$ref": "#/parameters/whereQuery"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of Message VPN Topic Endpoint Spooled Messages objects' attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnTopicEndpointMessagesResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a list of Message VPN Topic Endpoint Spooled Messages objects.",
+        "tags": [
+          "msgVpn",
+          "topicEndpoint"
+        ]
+      }
+    },
+    "/msgVpns/{msgVpnName}/topicEndpoints/{topicEndpointName}/messages/{msgId}": {
+      "get": {
+        "description": "Gets a Message VPN Topic Endpoint Spooled Messages object.\n\n\nAttribute|Identifying|Deprecated\n:---|:---:|:---:\nmsgId|x|\nmsgVpnName|x|\ntopicEndpointName|x|\n\n\n\nA SEMP client authorized with a minimum access scope/level of \"vpn/readonly\" is required to perform this operation.\n\nThis has been available since 2.6.0.",
+        "operationId": "getMsgVpnTopicEndpointMessage",
+        "parameters": [
+          {
+            "description": "The topicEndpointName of the Topic Endpoint.",
+            "in": "path",
+            "name": "topicEndpointName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgVpnName of the Message VPN.",
+            "in": "path",
+            "name": "msgVpnName",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The msgId of the Message VPN Topic Endpoint Spooled Messages.",
+            "in": "path",
+            "name": "msgId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/selectQuery"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "The Message VPN Topic Endpoint Spooled Messages object's attributes, and the request metadata.",
+            "schema": {
+              "$ref": "#/definitions/MsgVpnTopicEndpointMessageResponse"
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "schema": {
+              "$ref": "#/definitions/SempMetaOnlyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
+        "summary": "Gets a Message VPN Topic Endpoint Spooled Messages object.",
+        "tags": [
+          "msgVpn",
+          "topicEndpoint"
+        ]
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "description": "basic authentication",
+      "type": "basic"
+    }
+  },
+  "swagger": "2.0",
+  "tags": []
+}
