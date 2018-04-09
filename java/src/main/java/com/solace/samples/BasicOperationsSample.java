@@ -19,18 +19,22 @@
 
 package com.solace.samples;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.google.gson.Gson;
 
 import com.solace.labs.sempclient.samplelib.ApiClient;
 import com.solace.labs.sempclient.samplelib.ApiException;
-import com.solace.labs.sempclient.samplelib.api.MsgVpnApi;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientUsername;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientUsernameResponse;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientUsernamesResponse;
-import com.solace.labs.sempclient.samplelib.model.SempError;
-import com.solace.labs.sempclient.samplelib.model.SempMetaOnlyResponse;
+import com.solace.labs.sempclient.config.api.MsgVpnApi;
+import com.solace.labs.sempclient.config.model.MsgVpnClientUsername;
+import com.solace.labs.sempclient.config.model.MsgVpnClientUsernameResponse;
+import com.solace.labs.sempclient.config.model.MsgVpnClientUsernamesResponse;
+import com.solace.labs.sempclient.config.model.SempError;
+import com.solace.labs.sempclient.config.model.SempMetaOnlyResponse;
 
 public class BasicOperationsSample {
 
@@ -38,9 +42,23 @@ public class BasicOperationsSample {
     String msgVpn;
     
     private void handleError(ApiException ae) {
-        Gson gson = new Gson();
+        //Gson gson = new Gson();
+    	ObjectMapper mapper = new ObjectMapper();
         String responseString = ae.getResponseBody();
-        SempMetaOnlyResponse respObj = gson.fromJson(responseString, SempMetaOnlyResponse.class);
+        //SempMetaOnlyResponse respObj = gson.fromJson(responseString, SempMetaOnlyResponse.class);
+        SempMetaOnlyResponse respObj = null;
+		try {
+			respObj = mapper.readValue(responseString, SempMetaOnlyResponse.class);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         SempError errorInfo = respObj.getMeta().getError();
         System.out.println("Error during operation. Details..." + 
                 "\nHTTP Status Code: " + ae.getCode() + 

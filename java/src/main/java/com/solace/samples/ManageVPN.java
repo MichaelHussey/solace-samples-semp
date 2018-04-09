@@ -19,27 +19,31 @@
 
 package com.solace.samples;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 import com.solace.labs.sempclient.samplelib.ApiClient;
 import com.solace.labs.sempclient.samplelib.ApiException;
-import com.solace.labs.sempclient.samplelib.api.MsgVpnApi;
-import com.solace.labs.sempclient.samplelib.model.MsgVpn;
-import com.solace.labs.sempclient.samplelib.model.MsgVpn.AuthenticationBasicTypeEnum;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientProfile;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientProfileResponse;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientUsername;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnClientUsernameResponse;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnQueue;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnQueue.AccessTypeEnum;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnQueue.PermissionEnum;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnQueueResponse;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnQueuesResponse;
-import com.solace.labs.sempclient.samplelib.model.MsgVpnResponse;
-import com.solace.labs.sempclient.samplelib.model.SempError;
-import com.solace.labs.sempclient.samplelib.model.SempMetaOnlyResponse;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.solace.labs.sempclient.config.api.MsgVpnApi;
+import com.solace.labs.sempclient.config.model.MsgVpn;
+import com.solace.labs.sempclient.config.model.MsgVpn.AuthenticationBasicTypeEnum;
+import com.solace.labs.sempclient.config.model.MsgVpnClientProfile;
+import com.solace.labs.sempclient.config.model.MsgVpnClientProfileResponse;
+import com.solace.labs.sempclient.config.model.MsgVpnClientUsername;
+import com.solace.labs.sempclient.config.model.MsgVpnClientUsernameResponse;
+import com.solace.labs.sempclient.config.model.MsgVpnQueue;
+import com.solace.labs.sempclient.config.model.MsgVpnQueue.AccessTypeEnum;
+import com.solace.labs.sempclient.config.model.MsgVpnQueue.PermissionEnum;
+import com.solace.labs.sempclient.config.model.MsgVpnQueueResponse;
+import com.solace.labs.sempclient.config.model.MsgVpnQueuesResponse;
+import com.solace.labs.sempclient.config.model.MsgVpnResponse;
+import com.solace.labs.sempclient.config.model.SempError;
+import com.solace.labs.sempclient.config.model.SempMetaOnlyResponse;
 
 @SuppressWarnings("unused")
 public class ManageVPN {
@@ -49,10 +53,12 @@ public class ManageVPN {
     
     MsgVpnApi sempApiInstance;
     
-    private void handleError(ApiException ae) {
-        Gson gson = new Gson();
+    private void handleError(ApiException ae) throws JsonParseException, JsonMappingException, IOException {
+        //Gson gson = new Gson();
+    	ObjectMapper mapper = new ObjectMapper();
         String responseString = ae.getResponseBody();
-        SempMetaOnlyResponse respObj = gson.fromJson(responseString, SempMetaOnlyResponse.class);
+        //SempMetaOnlyResponse respObj = gson.fromJson(responseString, SempMetaOnlyResponse.class);
+        SempMetaOnlyResponse respObj = mapper.readValue(responseString, SempMetaOnlyResponse.class);
         SempError errorInfo = respObj.getMeta().getError();
         System.out.println("Error during operation. Details:" + 
                 "\nHTTP Status Code: " + ae.getCode() + 
